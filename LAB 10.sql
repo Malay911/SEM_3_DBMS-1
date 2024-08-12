@@ -45,7 +45,8 @@ UPDATE STUDENT_DETAILS SET BRANCH = 'ME' WHERE NAME = 'AMIT';
 --8. Delete a student whose roll number is 104 from AcademicData view.
 DELETE FROM ACADEMICDATA WHERE RNO = 104;
 
------------------------------------Part – B------------------------------------------------------------
+-----------------------------------Part â€“ B------------------------------------------------------------
+
 --1. Create a view that displays information of all students whose SPI is above 8.5
 CREATE VIEW STUDENT_TOP AS 
 SELECT * FROM STUDENT_INFO WHERE SPI > 8.5;
@@ -58,7 +59,8 @@ SELECT * FROM STUDENT_INFO WHERE BKLOG = 0;
 CREATE VIEW COMPUTERVIEW AS 
 SELECT * FROM STUDENT_INFO WHERE BRANCH = 'CE';
 
-------------------------------------Part – C-----------------------------------------------------------
+------------------------------------Part â€“ C-----------------------------------------------------------
+
 --1. Create a view Result_EC that displays the name and SPI of students with SPI less than 5 of branch EC.
 CREATE VIEW RESULT_EC AS 
 SELECT NAME, SPI FROM STUDENT_INFO WHERE BRANCH = 'EC' AND SPI < 5;
@@ -66,7 +68,7 @@ SELECT NAME, SPI FROM STUDENT_INFO WHERE BRANCH = 'EC' AND SPI < 5;
 --2. Update the result of student MAHESH to 4.90 in Result_EC view.
 UPDATE RESULT_EC SET SPI = 4.90 WHERE NAME = 'MAHESH';
 
---3. Create a view Stu_Bklog with RNo, Name and Bklog columns in which name starts with ‘M’ and having bklogs more than 5.
+--3. Create a view Stu_Bklog with RNo, Name and Bklog columns in which name starts with â€˜Mâ€™ and having bklogs more than 5.
 CREATE VIEW STU_BKLOG AS 
 SELECT RNO, NAME, BKLOG FROM STUDENT_INFO WHERE BKLOG > 5 AND NAME LIKE 'M%';
 
