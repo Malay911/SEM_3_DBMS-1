@@ -1,3 +1,4 @@
+--STU_INFO
 CREATE TABLE STU_INFO
 (RNO INT,
  NAME VARCHAR(20),
@@ -33,63 +34,67 @@ INSERT INTO EMPLOYEE_MASTER VALUES('E04','MILAN','E03');
 INSERT INTO EMPLOYEE_MASTER VALUES('E05','JAY','E01');
 INSERT INTO EMPLOYEE_MASTER VALUES('E06','ANJANA','E04');
 
---PART A
---1
+------------------------------------PART A-------------------------------------------------------------
+--1 Combine information from student and result table using cross join or Cartesian product.
 SELECT * FROM STU_INFO CROSS JOIN RESULT;
 
---2
+--2 Perform inner join on Student and Result tables.
 SELECT * FROM STU_INFO INNER JOIN RESULT ON STU_INFO.RNO=RESULT.RNO;
 
---3
+--3 Perform the left outer join on Student and Result tables.
 SELECT * FROM STU_INFO LEFT OUTER JOIN RESULT ON STU_INFO.RNO=RESULT.RNO;
 
---4
+--4 Perform the right outer join on Student and Result tables.
 SELECT * FROM STU_INFO RIGHT OUTER JOIN RESULT ON STU_INFO.RNO=RESULT.RNO;
 
---5
+--5 Perform the full outer join on Student and Result tables.
 SELECT * FROM STU_INFO FULL OUTER JOIN RESULT ON STU_INFO.RNO=RESULT.RNO;
 
---6
+--6 Display Rno, Name, Branch and SPI of all students.
 SELECT STU_INFO.RNO,STU_INFO.BRANCH,STU_INFO.BRANCH,RESULT.SPI 
 FROM STU_INFO JOIN RESULT 
 ON STU_INFO.RNO=RESULT.RNO;
 
---7
+--7 Display Rno, Name, Branch and SPI of CE branch’s student only.
 SELECT STU_INFO.RNO,STU_INFO.BRANCH,STU_INFO.BRANCH,RESULT.SPI 
 FROM STU_INFO JOIN RESULT 
 ON STU_INFO.RNO=RESULT.RNO WHERE BRANCH='CE';
 
---8
+--8 Display Rno, Name, Branch and SPI of other than EC branch’s student only.
 SELECT STU_INFO.RNO,STU_INFO.BRANCH,STU_INFO.BRANCH,RESULT.SPI 
 FROM STU_INFO JOIN RESULT 
 ON STU_INFO.RNO=RESULT.RNO WHERE BRANCH<>'EC';
 
---9
+--9 Display average result of each branch.
 SELECT STU_INFO.BRANCH,AVG(RESULT.SPI) 
 FROM STU_INFO JOIN RESULT 
 ON STU_INFO.RNO=RESULT.RNO GROUP BY BRANCH;
 
---10
+--10 Display average result of CE and ME branch.
 SELECT STU_INFO.BRANCH,AVG(RESULT.SPI) 
 FROM STU_INFO JOIN RESULT 
 ON STU_INFO.RNO=RESULT.RNO 
 GROUP BY BRANCH 
 HAVING STU_INFO.BRANCH IN('CE','ME');
 
---PART B
---1
+-------------------------------------PART B------------------------------------------------------------
+--1 Display average result of each branch and sort them in ascending order by SPI.
 SELECT STU_INFO.BRANCH,AVG(RESULT.SPI) 
 FROM STU_INFO JOIN RESULT 
 ON STU_INFO.RNO=RESULT.RNO 
 GROUP BY BRANCH 
 ORDER BY BRANCH;
 
---2
+--2 Display highest SPI from each branch and sort them in descending order
 SELECT STU_INFO.BRANCH,MAX(RESULT.SPI) 
 FROM STU_INFO JOIN RESULT 
 ON STU_INFO.RNO=RESULT.RNO 
 GROUP BY BRANCH 
 ORDER BY BRANCH DESC;
 
---PART C
---1
+-------------------------------------PART C------------------------------------------------------------
+--1 Retrieve the names of employee along with their manager’s name from the Employee table
+SELECT m.NAME AS EMPLOYEE_NAME,e.NAME AS MANAGER_NAME,m.MANAGERNO 
+FROM EMPLOYEE_MASTER
+AS e join EMPLOYEE_MASTER AS m 
+ON e.EMPLOYEENO = m.MANAGERNO;
