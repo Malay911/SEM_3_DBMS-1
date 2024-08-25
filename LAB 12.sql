@@ -40,6 +40,7 @@ FROM PERSON JOIN DEPT
 ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID
 WHERE DATEDIFF(DAY,PERSON.JOININGDATE, GETDATE())>365;
 
+
 --8 Find department wise person counts.
 SELECT DEPT.DEPARTMENTNAME,COUNT(PERSON.PERSONNAME) AS TOTAL_NUMBER
 FROM PERSON JOIN DEPT
@@ -69,5 +70,26 @@ GROUP BY DEPT.DEPARTMENTNAME;
 
 
 -----------------------------------------PART B--------------------------------------------------------
---1Produce Output Like: <PersonName> earns <Salary> from <DepartmentName> department monthly. (In single column)
+--1 Produce Output Like: <PersonName> earns <Salary> from <DepartmentName> department monthly. (In single column)
 
+
+--2 Find city & department wise total, average & maximum salaries.
+SELECT PERSON.CITY,DEPT.DEPARTMENTNAME,AVG(PERSON.SALARY) AS AVG_SALARY,SUM(PERSON.SALARY) AS SUM_SALARY,MAX(PERSON.SALARY) AS MAX_SALARY
+FROM PERSON JOIN DEPT
+ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID
+GROUP BY CITY,DEPARTMENTNAME;
+
+--3 Find all persons who do not belong to any department.
+SELECT PERSONID,DEPARTMENTID
+FROM PERSON
+WHERE DEPARTMENTID IS NULL;
+
+--4 Find all departments whose total salary is exceeding 100000.
+SELECT DEPT.DEPARTMENTNAME,SUM(PERSON.SALARY)
+FROM PERSON JOIN DEPT
+ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID
+GROUP BY DEPT.DEPARTMENTNAME
+HAVING SUM(PERSON.SALARY)>100000;
+
+-----------------------------------------PART C--------------------------------------------------------
+--1 List all departments who have no person.
