@@ -67,7 +67,9 @@ WHERE PERSON.CITY='AHMEDABAD'
 GROUP BY DEPT.DEPARTMENTNAME;
 
 --12 Produce Output Like: <PersonName> lives in <City> and works in <DepartmentName> Department. (In single column)
-
+SELECT PERSON.PERSONNAME + ' lives in ' + PERSON.CITY + ' and works in ' + DEPT.DEPARTMENTNAME + ' Department.' AS Description
+FROM PERSON JOIN DEPT
+ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID;
 
 -----------------------------------------PART B--------------------------------------------------------
 --1 Produce Output Like: <PersonName> earns <Salary> from <DepartmentName> department monthly. (In single column)
