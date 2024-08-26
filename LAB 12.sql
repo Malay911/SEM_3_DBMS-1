@@ -73,7 +73,9 @@ ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID;
 
 -----------------------------------------PART B--------------------------------------------------------
 --1 Produce Output Like: <PersonName> earns <Salary> from <DepartmentName> department monthly. (In single column)
-
+SELECT PERSON.PERSONNAME + ' EARNS ' + CAST(PERSON.SALARY AS VARCHAR) + ' FROM ' + DEPT.DEPARTMENTNAME + ' DEPARTMENT MONTHLY.' AS Description
+FROM PERSON JOIN DEPT
+ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID;
 
 --2 Find city & department wise total, average & maximum salaries.
 SELECT PERSON.CITY,DEPT.DEPARTMENTNAME,AVG(PERSON.SALARY) AS AVG_SALARY,SUM(PERSON.SALARY) AS SUM_SALARY,MAX(PERSON.SALARY) AS MAX_SALARY
