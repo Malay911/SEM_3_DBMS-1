@@ -34,7 +34,8 @@ FROM PERSON JOIN DEPT
 ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID
 WHERE DEPT.DEPARTMENTNAME='COMPUTER';
 
---7 Display all the person's name with the department whose joining date difference with the current date is more than 365 days.
+--7 Display all the person's name with the department whose joining date difference with the current date is 
+--more than 365 days.
 SELECT PERSON.PERSONNAME,DEPT.DEPARTMENTNAME
 FROM PERSON JOIN DEPT
 ON PERSON.DEPARTMENTID=DEPT.DEPARTMENTID
