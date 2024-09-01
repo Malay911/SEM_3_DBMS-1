@@ -1,4 +1,5 @@
 ----------------------------------------------PART A--------------------------------------------------------
+
 --1
 SELECT CITY.NAME,VILLAGE.NAME
 FROM CITY JOIN VILLAGE
@@ -37,6 +38,7 @@ GROUP BY CITY.NAME
 HAVING COUNT(VILLAGE.NAME)>1;
 
 ----------------------------------------------PART B--------------------------------------------------------
+
 --1
 --DONE USING DESIGN VIEW
 
