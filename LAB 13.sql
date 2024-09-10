@@ -1,17 +1,17 @@
 ----------------------------------------------PART A--------------------------------------------------------
 
---1
+--1 Display all the villages of Rajkot city.
 SELECT CITY.NAME,VILLAGE.NAME
 FROM CITY JOIN VILLAGE
 ON CITY.CITYID=VILLAGE.CITYID
 WHERE CITY.NAME='RAJKOT';
 
---2
+--2 Display city along with their villages & pin code.
 SELECT CITY.NAME,VILLAGE.NAME,CITY.PINCODE
 FROM CITY JOIN VILLAGE
 ON CITY.CITYID=VILLAGE.CITYID;
 
---3
+--3 Display the city having more than one village.
 SELECT CITY.NAME,COUNT(VILLAGE.NAME)
 FROM CITY JOIN VILLAGE
 ON CITY.CITYID=VILLAGE.CITYID
