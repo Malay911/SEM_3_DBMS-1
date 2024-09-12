@@ -41,19 +41,19 @@ HAVING COUNT(VILLAGE.NAME)>1;
 --1 Count the total number of villages in each city.
 --DONE USING DESIGN VIEW
 
---2
+--2 Do not allow Bklog less than 0.
 --DONE USING DESIGN VIEW
 
---3
+--3 Do not allow Bklog less than 0.
 --DONE USING DESIGN VIEW
 
---4
+--4 Try to update SPI of Raju from 8.80 to 12.
 UPDATE STU_MASTER 
 SET SPI=12 
 WHERE NAME='RAJU';
 --SHOWS ERROR
 
---5
+--5 Try to update Bklog of Neha from 0 to -1.
 UPDATE STU_MASTER 
 SET BKLOG=-1 
 WHERE NAME='NEHA';
