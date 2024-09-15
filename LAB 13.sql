@@ -80,11 +80,12 @@ CREATE TABLE City_details (
     Cname VARCHAR(50) NOT NULL
 );
 
+--VALID DATA
 INSERT INTO Dept_details (Did, Dname) VALUES (1, 'Sales');
 INSERT INTO City_details (Cid, Cname) VALUES (1, 'Ahmedabad');
 INSERT INTO Emp_details (Eid, Ename, Did, Cid, Salary, Experience) VALUES (1, 'John Doe', 1, 1, 50000.00, 5);
 
---Invalid Data
+--INVALID DATA
 -- Violates Salary constraint
 INSERT INTO Emp_details (Eid, Ename, Did, Cid, Salary, Experience) VALUES (2, 'Jane Smith', 1, 1, -1000.00, 3);
 
