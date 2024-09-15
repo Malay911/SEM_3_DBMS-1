@@ -60,3 +60,42 @@ WHERE NAME='NEHA';
 --SHOWS ERROR
 
 ----------------------------------------------PART B--------------------------------------------------------
+
+CREATE TABLE Emp_details (
+    Eid INT PRIMARY KEY,
+    Ename VARCHAR(50) NOT NULL,
+    Did INT NOT NULL,
+    Cid INT NOT NULL,
+    Salary DECIMAL(10, 2) NOT NULL CHECK (Salary >= 0),
+    Experience INT NOT NULL CHECK (Experience >= 0)
+);
+
+CREATE TABLE Dept_details (
+    Did INT PRIMARY KEY,
+    Dname VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE City_details (
+    Cid INT PRIMARY KEY,
+    Cname VARCHAR(50) NOT NULL
+);
+
+INSERT INTO Dept_details (Did, Dname) VALUES (1, 'Sales');
+INSERT INTO City_details (Cid, Cname) VALUES (1, 'Ahmedabad');
+INSERT INTO Emp_details (Eid, Ename, Did, Cid, Salary, Experience) VALUES (1, 'John Doe', 1, 1, 50000.00, 5);
+
+--Invalid Data
+-- Violates Salary constraint
+INSERT INTO Emp_details (Eid, Ename, Did, Cid, Salary, Experience) VALUES (2, 'Jane Smith', 1, 1, -1000.00, 3);
+
+-- Violates Experience constraint
+INSERT INTO Emp_details (Eid, Ename, Did, Cid, Salary, Experience) VALUES (3, 'Michael Johnson', 1, 1, 40000.00, -2);
+
+-- Violates foreign key constraint (invalid department ID)
+INSERT INTO Emp_details (Eid, Ename, Did, Cid, Salary, Experience) VALUES (4, 'Emily Davis', 2, 1, 35000.00, 4);
+
+SELECT * FROM EMP_DETAILS;
+SELECT * FROM DEPT_DETAILS;
+SELECT * FROM CITY_DETAILS;
+
+----------------------------------------------PART C--------------------------------------------------------
