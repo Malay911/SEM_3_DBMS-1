@@ -38,6 +38,7 @@ GROUP BY CITY.NAME
 HAVING COUNT(VILLAGE.NAME)>1;
 
 
+
 --1 Count the total number of villages in each city.
 --DONE USING DESIGN VIEW
 
