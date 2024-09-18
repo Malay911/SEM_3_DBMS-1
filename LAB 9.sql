@@ -1,6 +1,4 @@
---- LAB 9 ---
-
---- subqueries---
+----------------------------------------------Subqueries-------------------------------------------------------------
 
 CREATE TABLE Stu_Data (
     Rno INT,
@@ -43,7 +41,7 @@ INSERT INTO Department (DID, DName) VALUES
 (40, 'Civil');
 
 
---- Part A ---
+---------------------------------------------- Part A ---------------------------------------------------------------
 
 --1. Display details of students who are from computer department.
 	
@@ -76,7 +74,7 @@ INSERT INTO Department (DID, DName) VALUES
 	where rno in ( select rno from Academic where Bklog>1);
 
 
----- Part B ---
+---------------------------------------------- Part B ---------------------------------------------------------------
 
 --1. Display name of students who are either from computer department or from mechanical department.
 
@@ -88,7 +86,7 @@ INSERT INTO Department (DID, DName) VALUES
 	select name from Stu_Data
 	where did in ( select did from Department where did in(select did from Stu_Data where rno = 102));
 
---- Part C ---
+---------------------------------------------- Part C ---------------------------------------------------------------
 
 --1. Display name of students whose SPI is more than 9 and who is from electrical department.
 
