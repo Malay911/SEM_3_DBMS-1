@@ -1,11 +1,15 @@
-CREATE TABLE Stu_Detail (
+--- LAB 9 ---
+
+--- subqueries---
+
+CREATE TABLE Stu_Data (
     Rno INT,
     Name VARCHAR(50),
     City VARCHAR(50),
     DID INT,
 );
 
-INSERT INTO Stu_Detail (Rno, Name, City, DID) VALUES
+INSERT INTO Stu_Data (Rno, Name, City, DID) VALUES
 (101, 'Raju', 'Rajkot', 10),
 (102, 'Amit', 'Ahmedabad', 20),
 (103, 'Sanjay', 'Baroda', 40),
@@ -38,27 +42,91 @@ INSERT INTO Department (DID, DName) VALUES
 (30, 'Mechanical'),
 (40, 'Civil');
 
---PART A
---1
-SELECT * FROM Stu_Detail WHERE DID=(SELECT DID FROM Department WHERE DName='COMPUTER');
 
---2
-SELECT NAME FROM Stu_Detail WHERE RNO IN(SELECT RNO FROM Academic WHERE SPI>8);
+--- Part A ---
 
---3
-SELECT * FROM Stu_Detail WHERE CITY='RAJKOT' AND DID=(SELECT DID FROM Department WHERE DName='COMPUTER');
+--1. Display details of students who are from computer department.
+	
+	select * from Stu_Data
+	where did in (select did from Department where dname ='computer');
 
---4
-SELECT COUNT(RNO) AS  'students of electrical department' FROM Stu_Detail WHERE DID=(SELECT DID FROM Department WHERE DID=20);
+--2. Displays name of students whose SPI is more than 8.
 
---5
-SELECT NAME FROM Stu_Detail WHERE RNO=(SELECT RNO FROM Academic WHERE SPI IN(SELECT MAX(SPI) FROM Academic));
+	select name from  Stu_Data 
+	where rno in (select rno from Academic where spi > 8);
 
---6
-SELECT NAME FROM Stu_Detail WHERE RNO IN(SELECT RNO FROM Academic WHERE Bklog>1);
+--3. Display details of students of computer department who belongs to Rajkot city.
+
+	select * from Stu_Data
+	where did in(select did from Department where dname ='computer') and city='Rajkot';
+
+--4. Find total number of students of electrical department.
+
+	select count(did) as total_ec from Stu_Data
+	where did in(select did from Department where dname='electrical');
+
+--5. Display name of student who is having maximum SPI.
+
+	select name as maxspi_stu from Stu_Data 
+	where rno in (select rno from Academic where spi = (select max(spi) from Academic));
+
+--6. Display details of students having more than 1 backlog.
+	
+	select * from Stu_Data
+	where rno in ( select rno from Academic where Bklog>1);
 
 
---SET OPERATOR
+---- Part B ---
+
+--1. Display name of students who are either from computer department or from mechanical department.
+
+	select * from Stu_Data
+	where did in (select did from Department where dname ='computer' or dname ='mechanical' );	
+
+--2. Display name of students who are in same department as 102 studying in.
+	
+	select name from Stu_Data
+	where did in ( select did from Department where did in(select did from Stu_Data where rno = 102));
+
+--- Part C ---
+
+--1. Display name of students whose SPI is more than 9 and who is from electrical department.
+
+	SELECT name 
+	FROM Stu_Data 
+	WHERE did in (SELECT did FROM Department WHERE dname = 'electrical')
+	AND rno in (SELECT rno FROM Academic WHERE spi > 9);
+
+	
+--2. Display name of student who is having second highest SPI.
+	
+	SELECT name FROM Stu_Data 
+	WHERE rno = (
+    SELECT rno 
+    FROM Academic 
+    WHERE spi = (
+        SELECT MAX(spi) 
+        FROM Academic 
+        WHERE spi < (SELECT MAX(spi) FROM Academic)
+    ));
+	
+--3. Display city names whose students branch wise SPI is 9.2
+
+SELECT DISTINCT city 
+FROM Stu_Data 
+WHERE rno IN (
+    SELECT rno 
+    FROM Academic 
+    WHERE spi = 9.2
+) 
+AND did IN (
+    SELECT did 
+    FROM Department
+);
+
+
+--- SET OPERATORS ---
+
 CREATE TABLE Computer (
     RollNo INT,
     Name VARCHAR(50)
@@ -80,23 +148,138 @@ INSERT INTO Electrical (RollNo, Name) VALUES
 (107, 'Mahesh'),
 (115, 'Manish');
 
---1
-SELECT NAME FROM Computer UNION SELECT NAME FROM Electrical;
 
---2
-SELECT NAME FROM Computer UNION ALL SELECT NAME FROM Electrical;
+--- PART A ---
 
---3
-SELECT NAME FROM Computer INTERSECT SELECT Name FROM Electrical;
+--1. Display name of students who is either in Computer or in Electrical.
 
---4
-SELECT * FROM Computer EXCEPT SELECT * FROM Electrical;
+	SELECT name FROM computer
+	UNION
+	SELECT name FROM electrical;
 
---5
-SELECT * FROM Electrical EXCEPT SELECT * FROM Computer;
+--2. Display name of students who is either in Computer or in Electrical including duplicate data.
 
---6
-SELECT * FROM Computer UNION SELECT * FROM Electrical;
+	SELECT name FROM computer
+	UNION ALL
+	SELECT name FROM electrical;
 
---7
-SELECT * FROM Computer INTERSECT SELECT * FROM Electrical;
+--3. Display name of students who is in both Computer and Electrical.
+
+	SELECT name FROM computer
+	INTERSECT
+	SELECT name FROM electrical;
+
+--4. Display name of students who are in Computer but not in Electrical.
+
+	SELECT name FROM computer
+	EXCEPT
+	SELECT name FROM electrical;
+
+--5. Display name of students who are in Electrical but not in Computer.
+
+	SELECT name FROM electrical
+	EXCEPT
+	SELECT name FROM computer;
+
+--6. Display all the details of students who are either in Computer or in Electrical.
+
+	SELECT rollno, name FROM computer
+	UNION
+	SELECT rollno, name FROM electrical;
+
+
+--7. Display all the details of students who are in both Computer and Electrical.
+
+	SELECT rollno, name FROM computer
+    WHERE rollno IN (SELECT rollno FROM electrical);
+
+--- PART B ---
+
+CREATE TABLE Emp_DATA (
+    EID INT,
+    Name VARCHAR(50)
+);
+
+INSERT INTO Emp_DATA (EID, Name) VALUES
+(1, 'Ajay'),
+(9, 'Haresh'),
+(5, 'Manish');
+
+CREATE TABLE Customer (
+    CID INT,
+    Name VARCHAR(50)
+);
+
+INSERT INTO Customer (CID, Name) VALUES
+(5, 'Ajay'),
+(7, 'Mahesh'),
+(5, 'Manish');
+
+--1. Display name of persons who is either Employee or Customer.
+
+	SELECT Name FROM EMP_DATA
+	UNION
+	SELECT Name FROM CUSTOMER;
+
+--2. Display name of persons who is either Employee or Customer including duplicate data.
+
+	SELECT Name FROM EMP_DATA
+	UNION ALL
+	SELECT Name FROM CUSTOMER;
+
+--3. Display name of persons who is both Employee as well as Customer.
+
+	SELECT Name FROM EMP_DATA
+	INTERSECT
+	SELECT Name FROM CUSTOMER;
+
+--4. Display name of persons who are Employee but not Customer.
+
+	SELECT Name FROM EMP_DATA
+	EXCEPT
+	SELECT Name FROM CUSTOMER;
+
+--5. Display name of persons who are Customer but not Employee.
+
+	SELECT Name FROM CUSTOMER
+	EXCEPT
+	SELECT Name FROM EMP_DATA;
+
+--- PART C ---
+
+--Perform all the queries of Part-B but display ID and Name columns instead of Name only.
+
+--1.
+	SELECT EID AS ID, Name
+	FROM EMP_DATA
+	UNION
+	SELECT CID AS ID, Name
+	FROM CUSTOMER;
+
+--2.
+	SELECT EID AS ID, Name
+	FROM EMP_DATA
+	UNION ALL
+	SELECT CID AS ID, Name
+	FROM CUSTOMER;
+
+--3.
+	SELECT EID AS ID, Name
+	FROM EMP_DATA
+	INTERSECT
+	SELECT CID AS ID, Name
+	FROM CUSTOMER;
+
+--4.
+	SELECT EID AS ID, Name
+	FROM EMP_DATA
+	EXCEPT
+	SELECT CID AS ID, Name
+	FROM CUSTOMER;
+
+--5.
+	SELECT CID AS ID, Name
+	FROM CUSTOMER
+	EXCEPT
+	SELECT EID AS ID, Name
+	FROM EMP_DATA;
