@@ -191,7 +191,7 @@ INSERT INTO Electrical (RollNo, Name) VALUES
 	SELECT rollno, name FROM computer
     WHERE rollno IN (SELECT rollno FROM electrical);
 
---- PART B ---
+------------------------------------------------ PART B ------------------------------------------------------------
 
 CREATE TABLE Emp_DATA (
     EID INT,
@@ -243,7 +243,7 @@ INSERT INTO Customer (CID, Name) VALUES
 	EXCEPT
 	SELECT Name FROM EMP_DATA;
 
---- PART C ---
+---------------------------------------------- PART C --------------------------------------------------------------
 
 --Perform all the queries of Part-B but display ID and Name columns instead of Name only.
 
