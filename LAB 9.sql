@@ -123,7 +123,7 @@ AND did IN (
 );
 
 
---- SET OPERATORS ---
+----------------------------------------------- SET OPERATORS ------------------------------------------------------
 
 CREATE TABLE Computer (
     RollNo INT,
@@ -147,7 +147,7 @@ INSERT INTO Electrical (RollNo, Name) VALUES
 (115, 'Manish');
 
 
---- PART A ---
+------------------------------------------------- PART A ------------------------------------------------------------
 
 --1. Display name of students who is either in Computer or in Electrical.
 
