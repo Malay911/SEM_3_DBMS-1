@@ -38,13 +38,13 @@ GROUP BY CITY.NAME
 HAVING COUNT(VILLAGE.NAME)>1;
 
 
---1 Count the total number of villages in each city.
+--1 Do not allow SPI more than 10
 --DONE USING DESIGN VIEW
 
 --2 Do not allow Bklog less than 0.
 --DONE USING DESIGN VIEW
 
---3 Do not allow Bklog less than 0.
+--3 Enter the default value as ‘General’ in branch to all new records IF no other value is specified.
 --DONE USING DESIGN VIEW
 
 --4 Try to update SPI of Raju from 8.80 to 12.
